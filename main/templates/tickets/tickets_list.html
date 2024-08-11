@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tickets List</h1>
+
+  {% if tickets %}
+    <ul class="tickets-list">
+      {% for ticket in tickets %}
+        <li class="ticket-item">
+          <h2>Title: {{ ticket.title }}</h2>
+          <p>Status: {{ ticket.get_status_display }}</p>
+          {% if ticket.note %}
+            <p>Note: {{ ticket.note }}</p>
+          {% endif %}
+          <p>Group: {{ ticket.group.name }}</p>
+          {% if ticket.users.exists %}
+            <p>Users:
+              {% for user in ticket.users.all %}
+                {{ user.username }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </p>
+          {% endif %}
+
+          <div class="ticket-actions">
+            {% if ticket.id %}
+              <a href="{% url 'ticket_update' ticket.id %}">Edit</a>
+              <form method="post" action="{% url 'ticket_delete' ticket.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+              </form>
+            {% else %}
+              <p>Ticket ID is missing.</p>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No tickets available.</p>
+  {% endif %}
+{% endblock %}

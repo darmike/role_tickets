@@ -25,7 +25,7 @@
         <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </div>
-    {% if "manager" in user.groups.values_list('name', flat=True) or user.is_superuser %}
+    {% if is_manager %}
       {% if form.users %}
         <div>
           {{ form.users.label_tag }}<br>
@@ -36,12 +36,10 @@
           {% endfor %}<br>
         </div>
       {% else %}
-        <p>
-          There are no users in group
-        </p>
+        <p>There are no users in the group</p>
       {% endif %}
     {% endif %}
     {{ form.submit }}
   </form>
-  <a href="{% url 'tickets_list' %}">Back to ticket list</a>
+  <a href="{% url 'ticket_list' %}">Back to ticket list</a>
 {% endblock %}

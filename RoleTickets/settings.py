@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = '/home/'
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+
+AUTH_USER_MODEL = 'main.User'
+
 
 # Application definition
 
@@ -36,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'main',
     'django.contrib.staticfiles',
 ]
 
