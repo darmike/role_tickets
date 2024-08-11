@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Assign Roles to {{ user.email }}</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.roles.label }}<br>
+            {% for subfield in form.roles %}
+                <div>
+                    {{ subfield() }} {{ subfield.label }}
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit }}
+        </div>
+    </form>
+  <a href="{{ url_for('users_bp.users_list') }}">Back to users list</a>
+{% endblock %}

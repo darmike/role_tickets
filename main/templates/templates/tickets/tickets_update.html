@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Update Ticket</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      {{ form.title.label_tag }}<br>
+      {{ form.title }}<br>
+      {% for error in form.title.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.status.label_tag }}<br>
+      {{ form.status }}<br>
+      {% for error in form.status.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.note.label_tag }}<br>
+      {{ form.note }}<br>
+      {% for error in form.note.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    {% if "manager" in user.groups.values_list('name', flat=True) or user.is_superuser %}
+      {% if form.users %}
+        <div>
+          {{ form.users.label_tag }}<br>
+          {% for subfield in form.users %}
+            <div>
+              {{ subfield }} {{ subfield.label_tag }}
+            </div>
+          {% endfor %}<br>
+        </div>
+      {% else %}
+        <p>
+          There are no users in group
+        </p>
+      {% endif %}
+    {% endif %}
+    {{ form.submit }}
+  </form>
+  <a href="{% url 'tickets_list' %}">Back to ticket list</a>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ group.name }}</h1>
+
+  {% if group.users.exists %}  {# Перевірка, чи є користувачі в групі #}
+  <h3>Members:</h3>
+    {% for user in group.users.all %}  {# Django використовує all() для отримання списку користувачів #}
+      <p>
+        {{ user.username }}  {# Можливо, вам потрібно вказати конкретне поле, наприклад, username або інше #}
+      </p>
+    {% endfor %}
+  {% endif %}
+
+  <a href="{% url 'group_update' group.id %}">Edit</a>
+
+  <form method="POST" action="{% url 'group_delete' group.id %}">
+    {% csrf_token %}  {# Django вимагає CSRF токен для захисту форми #}
+    <button type="submit">Delete</button>
+  </form>
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Update Group</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    {% if form.users %}
+        <div>
+          {{ form.users.label_tag }}<br>
+          {% for subfield in form.users %}
+            <div>
+              {{ subfield }} {{ subfield.label }}
+            </div>
+          {% endfor %}<br>
+        </div>
+    {% else %}
+        <p>
+          There are no free users
+        </p>
+    {% endif %}
+
+    <button type="submit">Submit</button>
+  </form>
+  <a href="{% url 'groups_list' %}">Back to group list</a>
+{% endblock %}
