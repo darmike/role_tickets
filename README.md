@@ -14,13 +14,9 @@ What you need to install the software:
 - Django (version 3.1 or higher)
 - pip (Python package manager)
 
-### Installing
 
-Steps to get a local development environment running:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/yourrepositoryname.git
+
 
 
 Run with docker
