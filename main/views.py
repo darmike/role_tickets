@@ -1,8 +1,8 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import GroupForm, TicketForm, UserForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, get_object_or_404
+from .forms import GroupForm, TicketForm, CustomUserCreationForm
 from .models import Group, Ticket, User
 from django.contrib.auth import logout
 from django.shortcuts import redirect
@@ -41,17 +41,19 @@ def login_view(request):
     return render(request, 'registration/login.html', {'form': form})
 
 
-@login_required
+
+
 def register_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
 
 
 @login_required
@@ -62,7 +64,9 @@ def home(request):
         return redirect('manager_dashboard')
     elif request.user.role == 'Analyst':
         return redirect('analyst_dashboard')
-    return redirect('default_dashboard')
+    else:
+        return render(request,
+                      'dashboard/default_dashboard.html')  # Відображаємо стандартний дашборд як запасний варіант
 
 
 @login_required
@@ -99,12 +103,12 @@ def user_list(request):
 @user_passes_test(user_is_admin)
 def user_create(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             return redirect('user_list')
     else:
-        form = UserForm()
+        form = CustomUserCreationForm()
     return render(request, 'users/user_create.html', {'form': form})
 
 
@@ -113,12 +117,12 @@ def user_create(request):
 def user_update(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.method == 'POST':
-        form = UserForm(request.POST, instance=user)
+        form = CustomUserCreationForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             return redirect('user_list')
     else:
-        form = UserForm(instance=user)
+        form = CustomUserCreationForm(instance=user)
     return render(request, 'users/user_update.html', {'form': form})
 
 

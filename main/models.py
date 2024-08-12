@@ -4,9 +4,9 @@ from django.db import models
 # Модель користувача
 class User(AbstractUser):
     ROLE_CHOICES = (
-        ('Admin', 'Адміністратор'),
-        ('Manager', 'Менеджер'),
-        ('Analyst', 'Аналітик'),
+        ('Admin', 'АAdministrator'),
+        ('Manager', 'Manager'),
+        ('Analyst', 'Analyst'),
     )
     role = models.CharField(max_length=50, choices=ROLE_CHOICES)
 
