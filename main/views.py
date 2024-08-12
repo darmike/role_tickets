@@ -152,13 +152,18 @@ def ticket_create(request):
         if form.is_valid():
             ticket = form.save(commit=False)
             ticket.user = request.user
-            if request.user.role != 'Admin':
-                ticket.group = request.user.groups.first()
+            # Переконайтесь, що група завжди встановлена
+            if not ticket.group and request.user.role != 'Admin':
+                form.add_error('group', 'Group is required for non-admin users.')
+                return render(request, 'tickets/tickets_create.html', {'form': form})
             ticket.save()
             return redirect('ticket_list')
+        else:
+            return render(request, 'tickets/tickets_create.html', {'form': form})
     else:
         form = TicketForm()
-    return render(request, 'tickets/tickets_create.html', {'form': form})
+        return render(request, 'tickets/tickets_create.html', {'form': form})
+
 
 
 @login_required

@@ -4,7 +4,7 @@ from django.db import models
 # Модель користувача
 class User(AbstractUser):
     ROLE_CHOICES = (
-        ('Admin', 'АAdministrator'),
+        ('Admin', 'Administrator'),
         ('Manager', 'Manager'),
         ('Analyst', 'Analyst'),
     )
