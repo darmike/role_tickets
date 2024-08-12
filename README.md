@@ -23,3 +23,9 @@ Steps to get a local development environment running:
    git clone https://github.com/yourusername/yourrepositoryname.git
 
 
+Run with docker
+
+docker-compose build
+docker-compose up
+http://127.0.0.1:8000/
+
