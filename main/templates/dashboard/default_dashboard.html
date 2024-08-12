@@ -1,6 +1,9 @@
-{% extends "base.html" %}
+<!-- templates/dashboard/default_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Default Dashboard{% endblock %}
 
 {% block content %}
-  <h1>Default Dashboard</h1>
-  <p>Welcome to the default dashboard.</p>
+<h2>Default Dashboard</h2>
+<p>Welcome, {{ request.user.username }}! This is the default dashboard.</p>
 {% endblock %}

@@ -1,6 +1,9 @@
-{% extends "base.html" %}
+<!-- templates/dashboard/analyst_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Analyst Dashboard{% endblock %}
 
 {% block content %}
-  <h1>Analyst Dashboard</h1>
-  <p>Welcome to the analyst dashboard.</p>
+<h2>Analyst Dashboard</h2>
+<p>Welcome, {{ request.user.username }}! This is the analyst dashboard.</p>
 {% endblock %}

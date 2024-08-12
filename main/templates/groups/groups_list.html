@@ -1,18 +1,26 @@
-{% extends "base.html" %}
+<!-- templates/groups/groups_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Group List{% endblock %}
 
 {% block content %}
-  <h1>Groups</h1>
-
-  {% if is_admin %}  {# Перевірка ролі користувача #}
-    <a href="{% url 'group_create' %}">Create new group</a>
-  {% endif %}
-
-  <ul>
+<h2>Group List</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
     {% for group in groups %}
-      <li>
-        <a href="{% url 'group_detail' group.id %}">{{ group.name }}</a>
-      </li>
+    <tr>
+        <td>{{ group.name }}</td>
+        <td>{{ group.description }}</td>
+        <td>
+            <a href="{% url 'group_update' group.id %}">Edit</a> |
+            <a href="{% url 'group_delete' group.id %}">Delete</a>
+        </td>
+    </tr>
     {% endfor %}
-  </ul>
+</table>
+<a href="{% url 'group_create' %}">Add New Group</a>
 {% endblock %}
-

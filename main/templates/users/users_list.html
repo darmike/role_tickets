@@ -1,12 +1,28 @@
-{% extends "base.html" %}
+<!-- templates/users/users_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}User List{% endblock %}
 
 {% block content %}
-  <h1>Users</h1>
-  <ul>
+<h2>User List</h2>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
     {% for user in users %}
-      <li>
-        <a href="{% url 'users_assign_role' user.id %}">{{ user.email }}</a> - {{ user.roles }}
-      </li>
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+            <a href="{% url 'user_update' user.id %}">Edit</a> |
+            <a href="{% url 'user_delete' user.id %}">Delete</a>
+        </td>
+    </tr>
     {% endfor %}
-  </ul>
+</table>
+<a href="{% url 'user_create' %}">Add New User</a>
 {% endblock %}

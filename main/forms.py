@@ -1,10 +1,6 @@
-# forms.py
-
-from django.contrib.auth.models import User
-from .models import Group, Ticket
 from django import forms
-from .models import User  # Ваш кастомний User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Group, Ticket, User, Permission
 
 class GroupForm(forms.ModelForm):
     class Meta:
@@ -18,10 +14,12 @@ class TicketForm(forms.ModelForm):
 
 class UserForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    groups = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), required=False)
+    user_permissions = forms.ModelMultipleChoiceField(queryset=Permission.objects.all(), required=False)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'role', 'groups', 'user_permissions']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

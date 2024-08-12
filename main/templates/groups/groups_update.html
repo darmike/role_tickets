@@ -1,27 +1,13 @@
-{% extends "base.html" %}
+<!-- templates/groups/groups_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block title %}Delete Group{% endblock %}
 
 {% block content %}
-  <h1>Update Group</h1>
-  <form method="post">
+<h2>Are you sure you want to delete {{ group.name }}?</h2>
+<form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-
-    {% if form.users %}
-        <div>
-          {{ form.users.label_tag }}<br>
-          {% for subfield in form.users %}
-            <div>
-              {{ subfield }} {{ subfield.label }}
-            </div>
-          {% endfor %}<br>
-        </div>
-    {% else %}
-        <p>
-          There are no free users
-        </p>
-    {% endif %}
-
-    <button type="submit">Submit</button>
-  </form>
-  <a href="{% url 'groups_list' %}">Back to group list</a>
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'group_list' %}">Cancel</a>
+</form>
 {% endblock %}

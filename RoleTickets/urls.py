@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('main.urls')),  # Включення URL з вашого додатка
     # Додати маршрут для виходу з системи
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
 ]
 
