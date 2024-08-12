@@ -1,14 +1,13 @@
 # Вибір базового образу
-FROM python:3.10-slim
-
+FROM python:3.11.6-alpine3.18
+ENV PYTHONUNBUFFERED 1
 # Встановлення робочого каталогу в контейнері
-WORKDIR /app
+WORKDIR app/
 
-# Копіювання файлів проекту в контейнер
-COPY . /app
-
-# Встановлення залежностей
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+
+COPY . .
 
 # Відкриття порту, який використовується Django
 EXPOSE 8000
